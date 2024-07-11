@@ -1,0 +1,217 @@
+Your task is to rate the content of the conversation according to the evaluation criteria provided below.
+
+Single Dialogue Evaluation Criteria:
+Seeker Evaluation (Role A):
+1. Informativeness: The extent to which the seeker elaborately describes their actual problem or viewpoint, including the amount of key information, word count, and accuracy of expression. Additionally, it is not best practice for seekers to simply pose new questions or viewpoints; they should evaluate, conclude, or add details to the previous topic.
+
+Supporter Evaluation (Role B):
+1. Understanding: The relevance of a supporter's response to the person seeking help, and the extent to which the supporter comprehends the actual problem or viewpoint of the person seeking help. This includes the degree of alignment between understanding and intention. It also involves grasping the direct and indirect intentions of the person seeking help. A supporter merely answering the direct questions posed by the person seeking help signifies only an understanding of the direct intention, which is not the best practice. It is also important to comprehend the indirect intentions, answering related questions in part or providing brief supplements.
+2. Helpfulness: The degree to which a supporter's answer helps the person seeking help to solve their problems or to confirm or correct their viewpoints (this may be based on factual or external documents). This includes the detail of the answer, the word count, and the accuracy of expression. Additionally, it involves the level of detail in the supporter's response to both the direct and indirect questions of the person seeking help. Merely providing simple answers to direct questions is not the best practice; it is also necessary to supplement with related questions or to make brief evaluations.
+3. Loyalty: The extent to which the supporter's answer involves factual document information and the degree to which factual document knowledge is used in the answer, including consistency, detail, and word count. This also involves how factual document information is used by the supporter. Simply repeating factual document information is not best practice; understanding knowledge on a factually consistent basis, making it easier to understand, and introducing some related information and brief supplements to factual document information are required. If the current dialogue turn involves opinions, thanks, etc., and does not require factual document information, the score can be N/A.
+4. Flexibility: Involves two scenarios. First, if the current dialogue turn involves opinions, thanks, etc., and does not require factual document information, the level to which the supporter flexibly uses common sense and personal knowledge in response, involving the degree of flexibility, detail, and word count. Second, if the current dialogue turn involves factual document information, whether the supporter supplements the current topic or explains the factual information in the response based on factual document information, including word count and the degree of supplementation.
+
+Overall Dialogue Evaluation Criteria:
+1. Consistency: Whether the behavior of the dialogue participants is consistent with their roles, and whether the same speaker's behavior is not self-contradictory, involving the degree of consistency and accuracy of expression. Additionally, reducing dialogue content to maintain consistency is not best practice; increasing the word count of individual dialogues on this basis is required.
+2. Coherence: Whether the topic switches, deepens, and transitions between topics in the dialogue are natural. Simply posing another question is not best practice; a simple evaluation, supplement, or conclusion of the previous topic or question should be made when posing another question, involving the degree of dialogue coherence, word count, and topic details.
+3. Emotional Interactivity: The ability and tendency of the seeker and supporter to express and share emotions during the communication process, including the accuracy of emotion expression, the accuracy of emotion understanding, and the word count of the response. Where there are only simple questions and answers without detail supplements and viewpoint communication, it is not best practice; building a more intimate and effective communication relationship through multiple rounds of dialogue is required.
+
+Requirements:
+1. The scoring range is from 0.0 to 5.0, with each 0.5 as a step, e.g., 0.5, 1, 1.5, etc.
+2. Scores should be precise to one decimal place, such as 4.5, 5.0, etc.
+3. If the current conversation turns to involve comments, thanks, etc., and does not require factual document information, the loyalty score is rated N/A; Only the loyalty index score can appear N/A, other indicators can not appear N/A.
+4. The output format must be JSON, and no additional explanatory information is needed.
+
+==========
+
+The two multi-round conversations provided below are generated based on the same document. Learn according to the score of each indicator and the score gap between the two rounds of dialogue to understand the meaning of each evaluation indicator:
+
+{
+  "Reference": "【紫檀木楼阁式大更钟】\n紫檀木楼阁式大更钟，清宫造办处，清乾隆，高330cm，底座145×96cm。钟一层楼阁正面是二针时钟盘，其上五处上弦孔自左至右依次为打更、打时、走时、打刻、发更。它们以羊肠弦悬的铅砣为动力源，上弦后铅砣下坠产生动力，带动齿轮传送系统。二三层楼阁所扣三个铜钟，自上而下为打更、打时、打刻用。钟旁各有一铁锤，连接在机芯传动系统上。\n",
+  "Character Information": {"A": "历史爱好者", "B": "博物馆讲解员"},
+  "Multi-round Dialogue Evaluation": [
+    {
+      "id": 1,
+      "A": "你好，我对紫檀木楼阁式大更钟很感兴趣，能给我介绍一下它的历史背景吗？",
+      "A-score": "[Informativeness: 4.0]",
+      "B": "当然可以。紫檀木楼阁式大更钟是清宫造办处在清乾隆时期制作的，它不仅是计时工具，也是当时工艺技术的象征。",
+      "B-score": "[Understanding: 4.5], [Helpfulness: 4.5], [Loyalty: 4.5], [Flexibility: 4.0]"
+    },
+    {
+      "id": 2,
+      "A": "这钟的结构很特别，能详细说明一下它的构造吗？",
+      "A-score": "[Informativeness: 4.5]",
+      "B": "这座钟的设计确实独特。它的一层楼阁正面是一个二针时钟盘，上面有五个上弦孔，分别用于打更、打时、走时、打刻和发更。这些功能都是通过精巧的机械传动系统实现的。",
+      "B-score": "[Understanding: 4.5], [Helpfulness: 4.5], [Loyalty: 4.5], [Flexibility: 4.5]"
+    },
+    {
+      "id": 3,
+      "A": "它是怎样的动力机制呢？",
+      "A-score": "[Informativeness: 4.0]",
+      "B": "这钟的动力来源于羊肠弦悬挂的铅砣。当上弦后，铅砣下坠会产生动力，这个动力通过齿轮传送系统，驱动时钟运行和其他功能。",
+      "B-score": "[Understanding: 4.5], [Helpfulness: 4.5], [Loyalty: 4.5], [Flexibility: 4.0]"
+    },
+    {
+      "id": 4,
+      "A": "那么它的尺寸有多大？",
+      "A-score": "[Informativeness: 4.0]",
+      "B": "紫檀木楼阁式大更钟的高度是330厘米，底座的尺寸为145厘米乘以96厘米。它的体积和精细的工艺都令人印象深刻。",
+      "B-score": "[Understanding: 4.5], [Helpfulness: 4.5], [Loyalty: 4.5], [Flexibility: 4.0]"
+    },
+    {
+      "id": 5,
+      "A": "楼阁式的设计有什么特别的含义吗？",
+      "A-score": "[Informativeness: 4.0]",
+      "B": "楼阁式的设计很可能是为了体现宫廷的高贵和尊严。同时，这种设计也使得钟的外观更加雄伟和美观，显示出当时皇家的富丽堂皇。",
+      "B-score": "[Understanding: 4.0], [Helpfulness: 4.0], [Loyalty: 4.0], [Flexibility: 4.0]"
+    },
+    {
+      "id": 6,
+      "A": "钟上的铜钟和铁锤是用来做什么的？",
+      "A-score": "[Informativeness: 4.5]",
+      "B": "钟的二三层楼阁上各扣有三个铜钟，它们分别用于打更、打时和打刻。每个铜钟旁边都有一个铁锤，这些铁锤通过机芯传动系统与钟相连，用来敲击铜钟发出声音。",
+      "B-score": "[Understanding: 4.5], [Helpfulness: 4.5], [Loyalty: 4.5], [Flexibility: 4.5]"
+    },
+    {
+      "id": 7,
+      "A": "这么复杂的机械，维护起来一定很不容易吧？",
+      "A-score": "[Informativeness: 4.0]",
+      "B": "确实如此，这种复杂的机械结构需要非常专业的知识和技能来维护。它不仅是一个计时工具，更是一件艺术品，所以保养工作尤为重要。",
+      "B-score": "[Understanding: 4.5], [Helpfulness: 4.5], [Loyalty: N/A], [Flexibility: 4.0]"
+    },
+    {
+      "id": 8,
+      "A": "非常感谢你的讲解，我对这座大更钟有了更深的了解。",
+      "A-score": "[Informativeness: 4.5]",
+      "B": "不客气，很高兴能帮助到你。如果你对其他展品也感兴趣，我也很乐意为你讲解。",
+      "B-score": "[Understanding: 4.5], [Helpfulness: 4.5], [Loyalty: N/A], [Flexibility: 4.5]"
+    },
+  ],
+  "Overall Dialogue Evaluation": "[Consistency: 4.5],[Coherence: 4.5],[Emotional Interactivity: 4.5]"
+}
+
+=====
+
+{
+  "Reference": "【紫檀木楼阁式大更钟】\n紫檀木楼阁式大更钟，清宫造办处，清乾隆，高330cm，底座145×96cm。钟一层楼阁正面是二针时钟盘，其上五处上弦孔自左至右依次为打更、打时、走时、打刻、发更。它们以羊肠弦悬的铅砣为动力源，上弦后铅砣下坠产生动力，带动齿轮传送系统。二三层楼阁所扣三个铜钟，自上而下为打更、打时、打刻用。钟旁各有一铁锤，连接在机芯传动系统上。\n",
+  "Character Information": {"A": "紫檀木楼阁式大更钟研究者", "B": "清代历史文物爱好者"},
+  "Multi-round Dialogue Evaluation": [
+    {
+      "id": 1,
+      "A": "你知道紫檀木楼阁式大更钟是哪个朝代的吗？",
+      "A-score": "[Informativeness: 3.0]",
+      "B": "是清乾隆时期的吧？",
+      "B-score": "[Understanding: 3.5], [Helpfulness: 3.5], [Loyalty: 3.5], [Flexibility: 3.0]"
+    },
+    {
+      "id": 2,
+      "A": "对，那你知道它的高度和底座尺寸吗？",
+      "A-score": "[Informativeness: 3.5]",
+      "B": "高度是330cm，底座应该是145×96cm。",
+      "B-score": "[Understanding: 3.5], [Helpfulness: 3.5], [Loyalty: 3.5], [Flexibility: 3.0]"
+    },
+    {
+      "id": 3,
+      "A": "没错。那钟的正面有什么特别的设计吗？",
+      "A-score": "[Informativeness: 3.5]",
+      "B": "它的一层楼阁正面是二针时钟盘。",
+      "B-score": "[Understanding: 3.5], [Helpfulness: 3.5], [Loyalty: 3.5], [Flexibility: 3.0]"
+    },
+    {
+      "id": 4,
+      "A": "对，那上面的五处上弦孔有什么用途呢？",
+      "A-score": "[Informativeness: 3.5]",
+      "B": "它们分别用于打更、打时、走时、打刻和发更。",
+      "B-score": "[Understanding: 3.5], [Helpfulness: 3.5], [Loyalty: 3.5], [Flexibility: 3.0]"
+    },
+    {
+      "id": 5,
+      "A": "这钟是如何获取动力的呢？",
+      "A-score": "[Informativeness: 3.5]",
+      "B": "它使用羊肠弦悬挂的铅砣作为动力源。",
+      "B-score": "[Understanding: 3.5], [Helpfulness: 3.5], [Loyalty: 3.5], [Flexibility: 3.0]"
+    },
+    {
+      "id": 6,
+      "A": "那么，二三层楼阁上的三个铜钟有什么作用？",
+      "A-score": "[Informativeness: 3.5]",
+      "B": "它们分别用于打更、打时和打刻。",
+      "B-score": "[Understanding: 3.5], [Helpfulness: 3.5], [Loyalty: 3.5], [Flexibility: 3.0]"
+    },
+    {
+      "id": 7,
+      "A": "铜钟旁边的铁锤又是做什么用的呢？",
+      "A-score": "[Informativeness: 3.5]",
+      "B": "每个铁锤都连接在机芯传动系统上，用于敲击铜钟。",
+      "B-score": "[Understanding: 3.5], [Helpfulness: 3.5], [Loyalty: 3.5], [Flexibility: 3.0]"
+    },
+  ],
+  "Overall Dialogue Evaluation": "[Consistency: 3.5],[Coherence: 3.5],[Emotional Interactivity: 3.0]"
+}
+
+==========
+
+Below is an example of a rating format:
+
+Input:
+{
+  "Reference": "xxx",
+  "Character Information": {"A": "xxx", "B": "xxx"},
+  "Multi-round Dialogue Content 1": [
+    {
+      "id": 1,
+      "A": "xxx",
+      "Thought": "xxx",
+      "B": "xxx",
+      "chain": "xxx",
+    },
+    {
+      "id": 2,
+      "A": "xxx",
+      "Thought": "xxx",
+      "B": "xxx",
+      "chain": "xxx",
+    },
+    {
+      "id": 3,
+      "A": "xxx",
+      "Thought": "xxx",
+      "B": "xxx",
+      "chain": "xxx",
+    }
+  ]
+}
+
+Output:
+{
+  "Reference": "xxx",
+  "Character Information": {"A": "xxx", "B": "xxx"},
+  "Multi-round Dialogue Evaluation 1": [
+    {
+      "id": 1,
+      "A": "xxx",
+      "A-score": "[Informativeness: x.x]",
+      "B": "xxx",
+      "B-score": "[Understanding: x.x], [Helpfulness: x.x], [Loyalty: x.x], [Flexibility: x.x]"
+    },
+    {
+      "id": 2,
+      "A": "xxx",
+      "A-score": "[Informativeness: x.x]",
+      "B": "xxx",
+      "B-score": "[Understanding: x.x], [Helpfulness: x.x], [Loyalty: x.x], [Flexibility: x.x]"
+    },
+    {
+      "id": 3,
+      "A": "xxx",
+      "A-score": "[Informativeness: x.x]",
+      "B": "xxx",
+      "B-score": "[Understanding: x.x], [Helpfulness: x.x], [Loyalty: x.x], [Flexibility: x.x]"
+    }
+  ],
+  "Overall Dialogue Evaluation": "[Consistency: x.x],[Coherence: x.x],[Emotional Interactivity: x.x]"
+}
+
+
+Here is a new example. Complete the evaluation of multiple rounds of dialogue according to the input of multiple rounds of dialogue content. The output must be in json format, The json data output contains four keys, namely "Reference", "Character Information", "Multi-round Dialogue Evaluation", and "Overall Dialogue Evaluation".
+
+Input:

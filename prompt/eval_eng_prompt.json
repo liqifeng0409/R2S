@@ -1,0 +1,217 @@
+Your task is to rate the content of the conversation according to the evaluation criteria provided below.
+
+Single Dialogue Evaluation Criteria:
+Seeker Evaluation (Role A):
+1. Informativeness: The extent to which the seeker elaborately describes their actual problem or viewpoint, including the amount of key information, word count, and accuracy of expression. Additionally, it is not best practice for seekers to simply pose new questions or viewpoints; they should evaluate, conclude, or add details to the previous topic.
+
+Supporter Evaluation (Role B):
+1. Understanding: The relevance of a supporter's response to the person seeking help, and the extent to which the supporter comprehends the actual problem or viewpoint of the person seeking help. This includes the degree of alignment between understanding and intention. It also involves grasping the direct and indirect intentions of the person seeking help. A supporter merely answering the direct questions posed by the person seeking help signifies only an understanding of the direct intention, which is not the best practice. It is also important to comprehend the indirect intentions, answering related questions in part or providing brief supplements.
+2. Helpfulness: The degree to which a supporter's answer helps the person seeking help to solve their problems or to confirm or correct their viewpoints (this may be based on factual or external documents). This includes the detail of the answer, the word count, and the accuracy of expression. Additionally, it involves the level of detail in the supporter's response to both the direct and indirect questions of the person seeking help. Merely providing simple answers to direct questions is not the best practice; it is also necessary to supplement with related questions or to make brief evaluations.
+3. Loyalty: The extent to which the supporter's answer involves factual document information and the degree to which factual document knowledge is used in the answer, including consistency, detail, and word count. This also involves how factual document information is used by the supporter. Simply repeating factual document information is not best practice; understanding knowledge on a factually consistent basis, making it easier to understand, and introducing some related information and brief supplements to factual document information are required. If the current dialogue turn involves opinions, thanks, etc., and does not require factual document information, the score can be N/A.
+4. Flexibility: Involves two scenarios. First, if the current dialogue turn involves opinions, thanks, etc., and does not require factual document information, the level to which the supporter flexibly uses common sense and personal knowledge in response, involving the degree of flexibility, detail, and word count. Second, if the current dialogue turn involves factual document information, whether the supporter supplements the current topic or explains the factual information in the response based on factual document information, including word count and the degree of supplementation.
+
+Overall Dialogue Evaluation Criteria:
+1. Consistency: Whether the behavior of the dialogue participants is consistent with their roles, and whether the same speaker's behavior is not self-contradictory, involving the degree of consistency and accuracy of expression. Additionally, reducing dialogue content to maintain consistency is not best practice; increasing the word count of individual dialogues on this basis is required.
+2. Coherence: Whether the topic switches, deepens, and transitions between topics in the dialogue are natural. Simply posing another question is not best practice; a simple evaluation, supplement, or conclusion of the previous topic or question should be made when posing another question, involving the degree of dialogue coherence, word count, and topic details.
+3. Emotional Interactivity: The ability and tendency of the seeker and supporter to express and share emotions during the communication process, including the accuracy of emotion expression, the accuracy of emotion understanding, and the word count of the response. Where there are only simple questions and answers without detail supplements and viewpoint communication, it is not best practice; building a more intimate and effective communication relationship through multiple rounds of dialogue is required.
+
+Requirements:
+1. The scoring range is from 0.0 to 5.0, with each 0.5 as a step, e.g., 0.5, 1, 1.5, etc.
+2. Scores should be precise to one decimal place, such as 4.5, 5.0, etc.
+3. If the current conversation turns to involve comments, thanks, etc., and does not require factual document information, the loyalty score is rated N/A; Only the loyalty index score can appear N/A, other indicators can not appear N/A.
+4. The output format must be JSON, and no additional explanatory information is needed.
+
+==========
+
+The two multi-round conversations provided below are generated based on the same document. Learn according to the score of each indicator and the score gap between the two rounds of dialogue to understand the meaning of each evaluation indicator:
+
+{
+  "Reference": "[Rosewood Tower-style Grand Striking Clock]\nRosewood tower-style grand striking clock, made by the Qing Dynasty Imperial Workshop during the Qianlong period, stands 330cm tall with a base measuring 145¡Á96cm. The front of the clock's first tier features a two-hand clock face, with five winding holes from left to right designated for striking the hours, chiming, running, marking the quarters, and initiating the striking sequence. These functions are powered by lead weights suspended on catgut strings. Once wound, the descending weights generate power, driving the gear transmission system. The second and third tiers of the tower hold three bronze bells, used from top to bottom for striking the hours, chiming, and marking the quarters, respectively. Each bell is accompanied by an iron hammer, connected to the movement's transmission system.\n",
+  "Character Information": {"A": "History Enthusiast","B": "Museum Guide"},
+  "Multi-round Dialogue Evaluation": [
+    {
+      "id": 1,
+      "A": "Hello, I'm very interested in the rosewood tower-style grand striking clock. Could you tell me about its historical background?",
+      "A-score": "[Informativeness: 4.0]",
+      "B": "Certainly. The rosewood tower-style grand striking clock was produced by the Qing Dynasty Imperial Workshop during the Qianlong period. It served not only as a timekeeping tool but also as a symbol of the era's craftsmanship and technological prowess.",
+      "B-score": "[Understanding: 4.5], [Helpfulness: 4.5], [Loyalty: 4.5], [Flexibility: 4.0]"
+    },
+    {
+      "id": 2,
+      "A": "The structure of the clock is quite special. Can you explain its construction in detail?",
+      "A-score": "[Informativeness: 4.5]",
+      "B": "The design of this clock is indeed unique. The front of its first tier features a two-hand clock face with five winding holes for striking the hours, chiming, running, marking the quarters, and initiating the striking sequence. These functions are all achieved through a sophisticated mechanical transmission system.",
+      "B-score": "[Understanding: 4.5], [Helpfulness: 4.5], [Loyalty: 4.5], [Flexibility: 4.5]"
+    },
+    {
+      "id": 3,
+      "A": "What kind of power mechanism does it use?",
+      "A-score": "[Informativeness: 4.0]",
+      "B": "The clock is powered by lead weights suspended on catgut strings. When wound, the descending weights generate power, which is then transmitted through a gear system to drive the clock's operation and other functions.",
+      "B-score": "[Understanding: 4.5], [Helpfulness: 4.5], [Loyalty: 4.5], [Flexibility: 4.0]"
+    },
+    {
+      "id": 4,
+      "A": "How big is it?",
+      "A-score": "[Informativeness: 4.0]",
+      "B": "The rosewood tower-style grand striking clock stands 330cm tall, with a base measuring 145cm by 96cm. Its size and the intricacy of its craftsmanship are truly impressive.",
+      "B-score": "[Understanding: 4.5], [Helpfulness: 4.5], [Loyalty: 4.5], [Flexibility: 4.0]"
+    },
+    {
+      "id": 5,
+      "A": "Does the tower-style design have any special meaning?",
+      "A-score": "[Informativeness: 4.0]",
+      "B": "The tower-style design likely aims to reflect the nobility and dignity of the court. Additionally, this design makes the clock appear more majestic and beautiful, showcasing the royal family's splendor and opulence.",
+      "B-score": "[Understanding: 4.0], [Helpfulness: 4.0], [Loyalty: 4.0], [Flexibility: 4.0]"
+    },
+    {
+      "id": 6,
+      "A": "What are the bronze bells and iron hammers on the clock used for?",
+      "A-score": "[Informativeness: 4.5]",
+      "B": "The second and third tiers of the tower hold three bronze bells, used for striking the hours, chiming, and marking the quarters. Each bell is accompanied by an iron hammer, connected to the movement's transmission system to strike the bells and produce sound.",
+      "B-score": "[Understanding: 4.5], [Helpfulness: 4.5], [Loyalty: 4.5], [Flexibility: 4.5]"
+    },
+    {
+      "id": 7,
+      "A": "With such a complex mechanism, maintenance must not be easy, right?",
+      "A-score": "[Informativeness: 4.0]",
+      "B": "Indeed, maintaining such a complex mechanical structure requires specialized knowledge and skills. It is not just a timekeeping tool but also a piece of art, making its upkeep especially important.",
+      "B-score": "[Understanding: 4.5], [Helpfulness: 4.5], [Loyalty: N/A], [Flexibility: 4.0]"
+    },
+    {
+      "id": 8,
+      "A": "Thank you very much for your explanation. I now have a deeper understanding of this grand striking clock.",
+      "A-score": "[Informativeness: 4.5]",
+      "B": "You're welcome. I'm glad I could help. If you're interested in other exhibits, I'd be happy to explain those to you as well.",
+      "B-score": "[Understanding: 4.5], [Helpfulness: 4.5], [Loyalty: N/A], [Flexibility: 4.5]"
+    }
+  ],
+  "Overall Dialogue Evaluation": "[Consistency: 4.5],[Coherence: 4.5],[Emotional Interactivity: 4.5]"
+}
+
+=====
+
+{
+  "Reference": "[Rosewood Tower-style Grand Striking Clock]\nRosewood tower-style grand striking clock, made by the Qing Dynasty Imperial Workshop during the Qianlong period, stands 330cm tall with a base measuring 145¡Á96cm. The front of the clock's first level features a two-hand clock face, with five winding holes from left to right designated for striking the hours, chiming, running, marking the quarters, and initiating the striking sequence. They are powered by lead weights suspended on catgut strings. Once wound, the descending weights generate power, driving the gear transmission system. The second and third levels of the tower hold three bronze bells, used from top to bottom for striking the hours, chiming, and marking the quarters, respectively. Each bell is accompanied by an iron hammer, connected to the movement's transmission system.\n",
+  "Character Information": {"A": "Researcher of the Rosewood Tower-style Grand Striking Clock","B": "Enthusiast of Qing Dynasty historical artifacts"},
+  "Multi-round Dialogue Evaluation": [
+    {
+      "id": 1,
+      "A": "Do you know from which dynasty the rosewood tower-style grand striking clock is?",
+      "A-score": "[Informativeness: 3.0]",
+      "B": "It's from the Qianlong period of the Qing Dynasty, right?",
+      "B-score": "[Understanding: 3.5], [Helpfulness: 3.5], [Loyalty: 3.5], [Flexibility: 3.0]"
+    },
+    {
+      "id": 2,
+      "A": "Right, do you know its height and the dimensions of its base?",
+      "A-score": "[Informativeness: 3.5]",
+      "B": "The height is 330cm, and the base should be 145¡Á96cm.",
+      "B-score": "[Understanding: 3.5], [Helpfulness: 3.5], [Loyalty: 3.5], [Flexibility: 3.0]"
+    },
+    {
+      "id": 3,
+      "A": "Correct. Is there anything special about the design on the front of the clock?",
+      "A-score": "[Informativeness: 3.5]",
+      "B": "The front of its first level features a two-hand clock face.",
+      "B-score": "[Understanding: 3.5], [Helpfulness: 3.5], [Loyalty: 3.5], [Flexibility: 3.0]"
+    },
+    {
+      "id": 4,
+      "A": "Right, what are the purposes of the five winding holes on it?",
+      "A-score": "[Informativeness: 3.5]",
+      "B": "They are used for striking the hours, chiming, running, marking the quarters, and initiating the striking sequence, respectively.",
+      "B-score": "[Understanding: 3.5], [Helpfulness: 3.5], [Loyalty: 3.5], [Flexibility: 3.0]"
+    },
+    {
+      "id": 5,
+      "A": "How does the clock get its power?",
+      "A-score": "[Informativeness: 3.5]",
+      "B": "It uses lead weights suspended on catgut strings as the power source.",
+      "B-score": "[Understanding: 3.5], [Helpfulness: 3.5], [Loyalty: 3.5], [Flexibility: 3.0]"
+    },
+    {
+      "id": 6,
+      "A": "Then, what are the three bronze bells on the second and third levels for?",
+      "A-score": "[Informativeness: 3.5]",
+      "B": "They are used for striking the hours, chiming, and marking the quarters, respectively.",
+      "B-score": "[Understanding: 3.5], [Helpfulness: 3.5], [Loyalty: 3.5], [Flexibility: 3.0]"
+    },
+    {
+      "id": 7,
+      "A": "What about the iron hammers next to the bronze bells?",
+      "A-score": "[Informativeness: 3.5]",
+      "B": "Each hammer is connected to the movement's transmission system, used for striking the bells.",
+      "B-score": "[Understanding: 3.5], [Helpfulness: 3.5], [Loyalty: 3.5], [Flexibility: 3.0]"
+    }
+  ],
+  "Overall Dialogue Evaluation": "[Consistency: 3.5],[Coherence: 3.5],[Emotional Interactivity: 3.0]"
+}
+
+==========
+
+Below is an example of a rating format:
+
+Input:
+{
+  "Reference": "xxx",
+  "Character Information": "xxx",
+  "Multi-round Dialogue Content 1": [
+    {
+      "id": 1,
+      "A": "xxx",
+      "Thought": "xxx",
+      "B": "xxx",
+      "chain": "xxx",
+    },
+    {
+      "id": 2,
+      "A": "xxx",
+      "Thought": "xxx",
+      "B": "xxx",
+      "chain": "xxx",
+    },
+    {
+      "id": 3,
+      "A": "xxx",
+      "Thought": "xxx",
+      "B": "xxx",
+      "chain": "xxx",
+    }
+  ]
+}
+
+Output:
+{
+  "Reference": "xxx",
+  "Character Information": "xxx",
+  "Multi-round Dialogue Evaluation 1": [
+    {
+      "id": 1,
+      "A": "xxx",
+      "A-score": "[Informativeness: x.x]",
+      "B": "xxx",
+      "B-score": "[Understanding: x.x], [Helpfulness: x.x], [Loyalty: x.x], [Flexibility: x.x]"
+    },
+    {
+      "id": 2,
+      "A": "xxx",
+      "A-score": "[Informativeness: x.x]",
+      "B": "xxx",
+      "B-score": "[Understanding: x.x], [Helpfulness: x.x], [Loyalty: x.x], [Flexibility: x.x]"
+    },
+    {
+      "id": 3,
+      "A": "xxx",
+      "A-score": "[Informativeness: x.x]",
+      "B": "xxx",
+      "B-score": "[Understanding: x.x], [Helpfulness: x.x], [Loyalty: x.x], [Flexibility: x.x]"
+    }
+  ],
+  "Overall Dialogue Evaluation": "[Consistency: x.x],[Coherence: x.x],[Emotional Interactivity: x.x]"
+}
+
+
+Here is a new example. Complete the evaluation of multiple rounds of dialogue according to the input of multiple rounds of dialogue content. The output must be in json format, The json data output contains four keys, namely "Reference", "Character Information", "Multi-round Dialogue Evaluation", and "Overall Dialogue Evaluation".
+
+Input:

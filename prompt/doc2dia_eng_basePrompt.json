@@ -1,0 +1,61 @@
+Please construct multi-round dialogue based on the given fact document:
+
+Requirements:
+1. The number of dialogue rounds should not be less than 7.
+2. The constructed multi-round dialogue must be in English.
+3. According to the Reference information provided, first construct two dialogue characters with no more than 10 words of information for each characters, and then construct multiple dialogues based on the factual literature.
+4. The output format must be json, and no additional explanatory information is required.
+5. The format of multi-round dialogue is:
+{
+  "Reference": "xxx",
+  "Character Information": {"A": "xx","B": "xx"},
+  "Multi-round Dialogue Content": [
+  {
+    "id": 1,
+    "A": "xxx",
+    "B": "xxx"
+  },
+  {
+    "id": 2,
+    "A": "xxx",
+    "B": "xxx"
+  },
+  {
+    "id": 3,
+    "A": "xxx",
+    "B": "xxx"
+  }
+  ],
+}
+6. The value corresponding to the key "Reference" in the JSON data's multi-turn dialogue must be the same as the given reference, without any missing parts.
+
+==========
+
+Here is a typical example:
+
+Input:
+"Reference": "New_Delhi.New Delhi (i/nju dli/) is a municipality and district in Delhi which serves as the capital and seat of government of India. In addition, it also serves as the seat of Government of Delhi.The foundation stone of the city was laid by George V, Emperor of India during the Delhi Durbar of 1911. It was designed by British architects, Sir Edwin Lutyens and Sir Herbert Baker. The new capital was inaugurated on 13 February 1931, by India's Viceroy Lord Irwin.Although colloquially Delhi and New Delhi as names are used interchangeably to refer to the jurisdiction of NCT of Delhi, these are two distinct entities, and the latter is a small part of the former.New Delhi has been selected as one of the hundred Indian cities to be developed as a smart city under PM Narendra Modi's flagship Smart Cities Mission.Calcutta (now Kolkata) was the capital of India during the British Raj until December 1911. However, Delhi had served as the political and financial centre of several empires of ancient India and the Delhi Sultanate, most notably of the Mughal Empire from 1649 to 1857. During the early 1900s, a proposal was made to the British administration to shift the capital of the British Indian Empire (as it was officially called) from Calcutta to Delhi. Unlike Calcutta, which was located on the eastern coast of India, Delhi was at the centre of northern India and the Government of British India felt that it would be logistically easier to administer India from the latter rather than the former.",
+
+Output:
+{
+  "Reference": "New_Delhi.New Delhi (i/nju dli/) is a municipality and district in Delhi which serves as the capital and seat of government of India. In addition, it also serves as the seat of Government of Delhi.The foundation stone of the city was laid by George V, Emperor of India during the Delhi Durbar of 1911. It was designed by British architects, Sir Edwin Lutyens and Sir Herbert Baker. The new capital was inaugurated on 13 February 1931, by India's Viceroy Lord Irwin.Although colloquially Delhi and New Delhi as names are used interchangeably to refer to the jurisdiction of NCT of Delhi, these are two distinct entities, and the latter is a small part of the former.New Delhi has been selected as one of the hundred Indian cities to be developed as a smart city under PM Narendra Modi's flagship Smart Cities Mission.Calcutta (now Kolkata) was the capital of India during the British Raj until December 1911. However, Delhi had served as the political and financial centre of several empires of ancient India and the Delhi Sultanate, most notably of the Mughal Empire from 1649 to 1857. During the early 1900s, a proposal was made to the British administration to shift the capital of the British Indian Empire (as it was officially called) from Calcutta to Delhi. Unlike Calcutta, which was located on the eastern coast of India, Delhi was at the centre of northern India and the Government of British India felt that it would be logistically easier to administer India from the latter rather than the former.",
+  "Character Information": {"A": "xx","B": "xx"},
+  "Multi-round Dialogue Content": [
+  {
+    "id": 1,
+    "A": "xxx",
+    "B": "xxx"
+  },
+  {
+    "id": 2,
+    "A": "xxx",
+    "B": "xxx"
+  }
+  ],
+}
+
+==========
+
+Here is a new example, The following is the reference information provided, Please output the complete multi-round dialog in json format, including three keys "Reference", "Character Information", "Multi-round Dialogue Content".
+
+Input:

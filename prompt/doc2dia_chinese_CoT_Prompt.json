@@ -1,0 +1,67 @@
+Please construct multi-round dialogue based on the given fact document:
+
+Requirements:
+1. The number of dialogue rounds should not be less than 7.
+2. The constructed multi-round dialogue must be in Chinese.
+3. According to the Reference information provided, first construct two dialogue characters with no more than 10 words of information for each characters, and then construct multiple dialogues based on factual literature in which both characters can ask questions.
+4. The output format must be json, and no additional explanatory information is required.
+5. Before character B responds, perform a thinking action, i.e., "Let's think step-by-step," and then continue with a reflection.
+6. The format of multi-round dialogue is:
+{
+  "Reference": "xxx",
+  "Character Information": {"A": "xx","B": "xx"},
+  "Multi-round Dialogue Content": [
+  {
+    "id": 1,
+    "A": "xxx",
+    "Thought": "让我们逐步思考。问到xxx，由xxx，知道xxx",
+    "B": "xxx"
+  },
+  {
+    "id": 2,
+    "A": "xxx",
+    "Thought": "让我们逐步思考。针对xxx，已知xxx，所以xxx",
+    "B": "xxx"
+  },
+  {
+    "id": 3,
+    "A": "xxx",
+    "Thought": "让我们逐步思考。针对xxx方面，应回答xxx相关信息",
+    "B": "xxx"
+  }
+  ],
+}
+7. The value corresponding to the key "Reference" in the JSON data's multi-turn dialogue must be the same as the given reference, without any missing parts.
+
+==========
+
+Here is a typical example:
+
+Input:
+"Reference": "猫王\n《猫王》是由巴兹·鲁赫曼导演拍摄的传记片。\n中文名\n猫王\n导 演\n巴兹·鲁赫曼\n主 演\n汤姆·汉克斯、奥利维亚·德容格、玛吉·吉伦哈尔、奥斯汀·巴特勒\n上映时间\n2022年6月24日(北美)\n \n百科星图 查看更多 \n \n猫王剧情简介 \n故事讲述猫王的崛起和鼎盛时期，影片重点是猫王和经理人汤姆·帕克之间超过20年的关系。\n猫王制作发行 \n2022年2月，《猫王》发布中字版正式预告。\n2022年4月6日，戛纳电影节正式官宣巴兹·鲁赫曼（《红磨坊》《了不起的盖茨比》）导演的新传记片《猫王》将在本届电影节进行世界首映，也曝光最新剧照；\n5月25日，该片在戛纳举行全球首映礼。\n \n"
+
+Output:
+{
+  "Reference": "猫王\n《猫王》是由巴兹·鲁赫曼导演拍摄的传记片。\n中文名\n猫王\n导 演\n巴兹·鲁赫曼\n主 演\n汤姆·汉克斯、奥利维亚·德容格、玛吉·吉伦哈尔、奥斯汀·巴特勒\n上映时间\n2022年6月24日(北美)\n \n百科星图 查看更多 \n \n猫王剧情简介 \n故事讲述猫王的崛起和鼎盛时期，影片重点是猫王和经理人汤姆·帕克之间超过20年的关系。\n猫王制作发行 \n2022年2月，《猫王》发布中字版正式预告。\n2022年4月6日，戛纳电影节正式官宣巴兹·鲁赫曼（《红磨坊》《了不起的盖茨比》）导演的新传记片《猫王》将在本届电影节进行世界首映，也曝光最新剧照；\n5月25日，该片在戛纳举行全球首映礼。\n \n",
+  "Character Information": {"A": "xx","B": "xx"},
+  "Multi-round Dialogue Content": [
+  {
+    "id": 1,
+    "A": "xxx",
+    "Thought": "让我们逐步思考。针对xxx问题，已知xxx，所以xxx",
+    "B": "xxx"
+  },
+  {
+    "id": 2,
+    "A": "xxx",
+    "Thought": "让我们逐步思考。A在xxx，应回答xxx方面",
+    "B": "xxx"
+  }
+  ],
+}
+
+==========
+
+Here is a new example, The following is the reference information provided, Please output the complete multi-round dialog in json format, including three keys "Reference", "Character Information", "Multi-round Dialogue Content".
+
+Input:

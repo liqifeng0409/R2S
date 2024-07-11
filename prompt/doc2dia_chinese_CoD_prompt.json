@@ -1,0 +1,158 @@
+Your task is to construct a multi-round two-person dialogue based on the content of the reference knowledge document.
+
+Requirements:
+1. Character A can state relevant facts or ask questions about them, while Character B acts as an assistant. The dialogue should take place in a variety of settings.
+2. Both Character A and Character B should provide subjective responses.
+3. The dialogue should consist of more than seven turns.
+4. Before Character B responds, they need to use {} to explain their thought process. What is the logical process? First, analyze the type of dialogue, which includes (question-answer, question-question, statement-inquiry, statement-explanation, viewpoint-counterargument, viewpoint-agreement), then search for information, and complete the dialogue based on the discovered information.
+5. The entire multi-turn dialogue should include a variety of dialogue types.
+6. The content of the multi-round dialogue is in json format, with four keys. The first key is "id", which represents the round of the dialogue in the multi-round dialogue; the second key is "A", which represents the content of character A's speech; the third key is "thought", which represents the thought process of character B in response to character A's dialogue, in the format of {Dialogue Type[xx-xx], Search[xx], Find[xx]}, where Search[] is the target of the search, and Find[] is the result of searching the [#Reference] based on the content of Search[], if there is no direct information, answer based on the model's common sense; The fourth key is "chain", which represents the logic chain of the current dialogue, divided into four parts, the first part is to identify the dialogue type; the second part is to evaluate the progress of the dialogue; the third part is to introduce the logical process of A and B's dialogue separately; the fourth part is to evaluate the dialogue purpose of the current single round dialogue.
+7. The dialogue between Character A and Character B must be in Chinese.
+8. The output format must be json, and no additional explanatory information is required.
+9. The value corresponding to the key "Reference" in the JSON data's multi-turn dialogue must be the same as the given reference, without any missing parts.
+
+[Explanation of Dialogue Types]:
+1. Question-Answer: This is the most common dialogue logic chain, where character A asks a question and character B provides an answer. For example, "A: How old are you?" "B: I'm 23."
+2. Question-Question: This is a logic process of question intent completion. Character A asks a relatively vague question, and when character B needs to clarify the intent of character A's question, character B can continue to ask. For example, "A: How old are you?" "B: Are you asking how old I am in terms of age?"
+3. Statement-Inquiry: Character A makes a statement, and character B asks about it or requests more information. For example, "A: I went to the museum today." "B: Oh, what interesting exhibits did you see?"
+4. Statement-Explanation: Character A states a fact, and then character B explains or elaborates on the related information of this fact. For example, "A: Yao Ming won the CBA championship in 2002." "B: He was also selected as the CBA rebounding king and blocking king three times each, and the CBA dunk king twice."
+5. Opinion-Rebuttal: Character A presents an opinion, and character B refutes or presents a different opinion based on facts. For example, "A: I think this movie is very good." "B: No, this movie has a rating of 9.5, it's a good movie."
+6. Opinion-Agreement: Character A presents an opinion, and character B agrees or disagrees based on facts. For example, "A: This contestant sings really badly." "B: Indeed, the judges gave low scores."
+
+Here is the first typical example:
+
+==========
+{
+  "Reference": "嘉宾\n《嘉宾》是由王泽言和张远作词,王泽言作曲,路飞文翻唱的歌曲,发行于2021年5月22日。\n收录于同名专辑《嘉宾》中。\n中文名\n嘉宾\n所属专辑\n嘉宾\n歌曲时长\n4分31秒\n歌曲原唱\n张远\n填 词\n王泽言、张远\n谱 曲\n王泽言\n编 曲\n赵二\n发行日期\n2021年5月22日\n歌曲语言\n普通话\n翻 唱\n路飞文\n \n嘉宾制作团队 \n吉他: 刘磊制作统筹: 刘向/李梦思制作人: 徐怀超/时金宇和声: Zing Studio混音: 张锦亮母带: 张锦亮录音: TONG刘通@I Music Studio制作公司: 潮音悦动营销推广: 银河方舟\n嘉宾歌曲歌词 \n分手后第几个冬季\n今天是星期几偶尔会想起你你突如其来的简讯让我措手不及愣住站在原地当所有人都替你开心我却才傻傻清醒原来早已有人为你订做了嫁衣感谢你特别邀请来见证你的爱情我时刻提醒自己 别逃避拿着喜帖一步一步走近他精心布置的场地可惜这是属于你的风景而我只是嘉宾我放下所有回忆来成全你的爱情却始终不愿相信 这是命好久不见的你有点疏离握手寒暄如此客气何必要在他的面前刻意隐瞒我的世界 有过你不知不觉钟声响起你守候在原地等待着他靠近温柔的他单膝跪地钻戒缓缓戴进你的无名指里当所有人都替你开心我却才傻傻清醒原来我们之间已没有任何关系感谢你特别邀请来见证你的爱情我时刻提醒自己 别逃避今天你妆扮得格外美丽这美也曾拥在怀里可惜这是你和他的婚礼而我只是嘉宾我放下所有回忆来成全你的爱情却始终不愿相信 这是命说好的永远变成了曾经我试着衷心祝福你请原谅我不体面没出息选择失陪一下 先离席又不是偶像剧怎么我演得那么入戏这不堪入目的剧情感谢你特别邀请观赏你要的爱情嘉宾也许是另一种宿命离开你的自己事到如今还有什么资格关心毕竟终成眷属的人是你而我只是嘉宾我流尽所有回忆来庆祝你的婚礼却始终没有勇气 祝福你谢谢你送给我最后清醒把自己还给我自己至少我还能够成为那个见证你们爱情的嘉宾 \n",
+  "Character Information": {"A": "感伤的前男友","B": "心理咨询师"},
+  "Multi-round Dialogue Content": [
+    {
+    "id": 1,
+    "A": "你好,作为一个刚刚经历了分手的人,我最近听到了路飞文翻唱的《嘉宾》,感触颇深。",
+    "Thought": "{Dialogue Types[观点-认同], Search[《嘉宾》歌曲感触], Find[无直接信息关于歌曲感触,根据常识《嘉宾》的歌词描述了分手后的感受,与A的情况相符,可能会引起共鸣。]}",
+    "B": "能明白您的感受。这首歌曲的歌词讲述了分手后的感慨,往往能触动人心。音乐有时就是情绪的出口,愿它能为您提供一些慰藉。",
+    "chain": "[观点-认同]; 对话开始; A分享个人经历和听歌的感受,B表达理解并认同音乐对情绪的影响；对话目的是引起共鸣并提供安慰。"
+    },
+    {
+    "id": 2,
+    "A": "是的,听着歌曲里的歌词,感觉像是描绘了我自己的故事。",
+    "Thought": "{Dialogue Types[观点-认同], Search[《嘉宾》歌曲歌词], Find[嘉宾歌曲歌词 \n分手后第几个冬季\n今天是星期几偶尔会想起你你突如其来的简讯让我措手不及愣住站在原地当所有人都替你开心我却才傻傻清醒原来早已有人为你订做了嫁衣感谢你特别邀请来见证你的爱情我时刻提醒自己 别逃避拿着喜帖一步一步走近他精心布置的场地可惜这是属于你的风景而我只是嘉宾我放下所有回忆来成全你的爱情却始终不愿相信 这是命好久不见的你有点疏离握手寒暄如此客气何必要在他的面前刻意隐瞒我的世界 有过你不知不觉钟声响起你守候在原地等待着他靠近温柔的他单膝跪地钻戒缓缓戴进你的无名指里当所有人都替你开心我却才傻傻清醒原来我们之间已没有任何关系感谢你特别邀请来见证你的爱情我时刻提醒自己 别逃避今天你妆扮得格外美丽这美也曾拥在怀里可惜这是你和他的婚礼而我只是嘉宾我放下所有回忆来成全你的爱情却始终不愿相信 这是命说好的永远变成了曾经我试着衷心祝福你请原谅我不体面没出息选择失陪一下 先离席又不是偶像剧怎么我演得那么入戏这不堪入目的剧情感谢你特别邀请观赏你要的爱情嘉宾也许是另一种宿命离开你的自己事到如今还有什么资格关心毕竟终成眷属的人是你而我只是嘉宾我流尽所有回忆来庆祝你的婚礼却始终没有勇气 祝福你谢谢你送给我最后清醒把自己还给我自己至少我还能够成为那个见证你们爱情的嘉宾 \n,《嘉宾》的歌词描述了观看前爱人婚礼的场景,引发了深刻的共鸣。]}",
+    "B": "音乐的力量就是能够让人找到共鸣,它可以抚慰人心。当我们无法直接表达我们的感受时,歌曲的歌词为我们提供了一种方式。",
+    "chain": "[观点-认同]; 对话继续; A表达对歌曲歌词与个人情感的强烈共鸣,B再次认同并描述音乐的抚慰作用；对话目的是深化对音乐情感共鸣的讨论。"
+    },
+    {
+    "id": 3,
+    "A": "但是听多了,我就越发觉得自己的情绪无法自拔,我应该怎么做才好呢？",
+    "Thought": "{Dialogue Types[问题-回答], Search[情绪无法自拔的应对方法], Find[无直接信息关于情绪无法自拔的应对方法,根据常识情绪管理常包含寻求专业帮助、进行心理疏导、参与团体活动等手段。]}",
+    "B": "沉浸在情绪中有时是无法避免的,但重要的是要学会管理情绪。您可以尝试进行一些有益身心的活动,比如运动、写日记。同时,与朋友交流也很重要,不要孤独地面对这些情感。如果需要,寻求专业的心理咨询也是非常有帮助的。",
+    "chain": "[问题-回答]; 对话深入; A询问如何应对深陷情绪的问题,B提供多种情绪管理的建议；对话目的是为A的情绪困扰提供建议。"
+    },
+    {
+    "id": 4,
+    "A": "或许我确实需要和别人谈谈,我有时觉得自己被这首歌唤起的回忆牵绊。",
+    "Thought": "{Dialogue Types[观点-认同], Search[被回忆牵绊的心理感受], Find[无直接信息关于被回忆牵绊的心理感受,根据常识被强烈的回忆牵绊是一种常见的心理现象,讲述自己的故事可以帮助处理这些情感。]}",
+    "B": "分享自己的经历和情感,确实可以有助于处理,让人感觉不那么孤单。有时候,向一个信任的朋友或咨询师吐露心声,就是一种很好的释放方式。",
+    "chain": "[观点-认同]; 对话继续; A表达被歌曲唤起的回忆所困扰,寻求分享经历的途径,B认同并鼓励分享的行为；对话目的是鼓励A分享以减轻心理负担。"
+    },
+    {
+    "id": 5,
+    "A": "《嘉宾》这首歌是什么时候发行的？我以前怎么没听说过。",
+    "Thought": "{Dialogue Types[问题-回答], Search[《嘉宾》发行日期], Find[《嘉宾》发行于2021年5月22日。]}",
+    "B": "《嘉宾》这首歌曲是在2021年5月22日发行的,收录于同名专辑《嘉宾》中。这是路飞文翻唱的版本,原唱是张远。",
+    "chain": "[问题-回答]; 对话继续; A询问歌曲的发行时间,B提供具体的发行日期和背景信息；对话目的是提供歌曲的相关信息。"
+    },
+    {
+    "id": 6,
+    "A": "原来是最近的歌曲啊。原唱者和填词者是同一个人吗？",
+    "Thought": "{Dialogue Types[问题-回答], Search[《嘉宾》原唱和填词者], Find[《嘉宾》由张远原唱,歌词由王泽言和张远共同填写。]}",
+    "B": "不完全是,歌曲《嘉宾》由张远原唱,但填词是由王泽言和张远共同完成的。",
+    "chain": "[问题-回答]; 话题深入; A对原唱者和填词者的关系表示疑问,B澄清并提供确切信息；对话目的是说明歌曲《嘉宾》的创作背景。"
+    },
+    {
+    "id": 7,
+    "A": "这首歌的制作团队都有谁？",
+    "Thought": "{Dialogue Types[问题-回答], Search[《嘉宾》制作团队], Find[吉他: 刘磊,制作统筹: 刘向/李梦思,制作人: 徐怀超/时金宇,和声: Zing Studio,混音: 张锦亮,母带: 张锦亮,录音: TONG刘通@I Music Studio,制作公司: 潮音悦动,营销推广: 银河方舟。]}",
+    "B": "这首歌的制作团队包括吉他手刘磊、制作统筹刘向和李梦思、制作人徐怀超和时金宇。和声部分由Zing Studio完成,混音和母带处理是张锦亮负责的。录音则是在I Music Studio由TONG刘通进行。这首歌由潮音悦动制作,并由银河方舟进行营销推广。",
+    "chain": "[问题-回答]; 对话继续; A询问歌曲的制作团队成员,B列举并描述了各主要成员的职责；对话目的是提供《嘉宾》的幕后团队信息。"
+    },
+    {
+    "id": 8,
+    "A": "感谢你,有了这些信息,我想我可以更加客观地评价这首歌,并且也让我了解到音乐背后的不易。",
+    "Thought": "{Dialogue Types[观点-认同], Search[音乐制作的不易], Find[无直接信息关于音乐制作的不易,根据常识音乐制作包括多个环节,每个环节都需要团队成员的专业技能。]}",
+    "B": "很高兴能帮助到您。确实,每首歌背后都有一个团队的辛勤工作。这首歌及其制作过程也许能为您提供一点心灵的慰藉,希望音乐能够继续陪伴您走出失恋的阴影。",
+    "chain": "[观点-认同]; 对话结束; A表示感谢并对音乐制作过程有了更全面的理解,B认同并再次提供安慰；对话目的是总结讨论并提供情感支持。"
+    }
+  ],
+}
+
+Here is the second typical example:
+
+==========
+{
+  "Reference": "安静\n歌曲《安静》,由周杰伦作词作曲、Rap词由王嘉尔填写,由王嘉尔演唱。\n中文名\n安静\n所属专辑\n梦想的声音第三季 第12期\n歌曲时长\n04分16秒\n歌曲原唱\n周杰伦\n填 词\n周杰伦、王嘉尔\n谱 曲\n周杰伦\n编 曲\n王嘉尔、boytoyyoungsky\n音乐风格\n流行\n发行日期\n2019年1月11日\n",
+  "Character Information": {"A": "周杰伦音乐粉丝","B": "音乐评论员"},
+  "Multi-round Dialogue Content": [
+    {
+    "id": 1,
+    "A": "你好,我是周杰伦的粉丝,最近发现王嘉尔翻唱了《安静》,你听过吗？",
+    "Thought": "{Dialogue Types[问题-回答], Search[《安静》 王嘉尔翻唱], Find[歌曲《安静》,由周杰伦作词作曲,Rap词由王嘉尔填写,由王嘉尔演唱。]}",
+    "B": "是的,我听过。王嘉尔翻唱的《安静》是周杰伦的原创作品,他在翻唱中加入了自己的Rap元素,有一定的新意。",
+    "chain": "[问题-回答]; 对话开始; A表达自己是周杰伦的粉丝,并提出问题询问《安静》这首歌的翻唱情况,B确认并提供了信息；对话目的是讨论歌曲《安静》的翻唱版本。"
+    },
+    {
+    "id": 2,
+    "A": "周杰伦本人有参与到翻唱作品中吗？",
+    "Thought": "{Dialogue Types[问题-回答], Search[《安静》周杰伦参与翻唱], Find[无直接信息关于周杰伦本人参与到翻唱作品中,歌曲《安静》由周杰伦作词作曲,Rap词由王嘉尔填写,由王嘉尔演唱。编曲由王嘉尔、boytoyyoungsky进行。]}",
+    "B": "周杰伦为原曲《安静》的词曲作者,而王嘉尔在翻唱版本中填写了Rap部分,并参与了编曲。但具体是否有周杰伦本人的直接参与,这需要查阅更多资料。",
+    "chain": "[问题-回答]; 对话继续; A询问周杰伦是否参与翻唱版本,B根据周杰伦为原曲作者的事实回答并说明王嘉尔的角色；对话目的是讨论周杰伦在翻唱版本中的作用。"
+    },
+    {
+    "id": 3,
+    "A": "那原创和翻唱版本有哪些区别呢？",
+    "Thought": "{Dialogue Types[问题-回答], Search[《安静》原创与翻唱版本区别], Find[无直接信息表示原创和翻唱的区别,但根据常识原创版本完全是周杰伦的风格,而翻唱版本由王嘉尔演唱,并加入Rap元素及新的编曲风格。]}",
+    "B": "原创版本完全体现了周杰伦的音乐风格和情感表达。王嘉尔翻唱的版本则在演绎上有所不同,加入了自己的Rap创作,并适度地调整了编曲,这使得翻唱版本有了不一样的听觉体验。",
+    "chain": "[问题-回答]; 话题深入; A对比询问原创和翻唱的差异,B基于音乐风格和演唱的不同给出答案；对话目的是对比原创和翻唱版本的区别。"
+    },
+    {
+    "id": 4,
+    "A": "我很喜欢周杰伦的《安静》,但翻唱的RAP部分我觉得也挺有趣的。",
+    "Thought": "{Dialogue Types[观点-认同], Search[《安静》翻唱RAP评价], Find[翻唱版本由于有王嘉尔特色的RAP部分,在原有歌曲的基础上增加了一些新意。]}",
+    "B": "确实,这样的融合给歌曲带来了新的活力。周杰伦的《安静》已经是非常经典的作品,而王嘉尔的Rap部分为它注入了一股新鲜的血液。",
+    "chain": "[观点-认同]; 话题讨论; A表达对原曲和翻唱RAP部分的喜爱,B认同并评价了RAP部分给原作带来的影响；对话目的是评价翻唱版本中RAP的创新之处。"
+    },
+    {
+    "id": 5,
+    "A": "这首翻唱出现在什么场合？",
+    "Thought": "{Dialogue Types[问题-回答], Search[《安静》翻唱场合], Find[歌曲《安静》的翻唱版本出现在《梦想的声音第三季 第12期》。]}",
+    "B": "王嘉尔翻唱的《安静》首次亮相在《梦想的声音第三季 第12期》的节目中。",
+    "chain": "[问题-回答]; 对话继续; A询问歌曲翻唱版本的来源,B根据其在特定节目中的表现回答；对话目的是介绍翻唱版本的首次出现场合。"
+    },
+    {
+    "id": 6,
+    "A": "那我去哪里可以听到这首翻唱版的《安静》？",
+    "Thought": "{Dialogue Types[问题-回答], Search[《安静》翻唱版本播放渠道], Find[可前往音乐播放平台搜索《梦想的声音第三季》相关集数,或在视频平台搜索该节目以观看翻唱表演。]}",
+    "B": "你可以在各大音乐播放平台搜索周杰伦或王嘉尔的名字找到这首歌曲,也可能在视频平台上找到其在《梦想的声音第三季》中的演出视频。",
+    "chain": "[问题-回答]; 对话深入; A想知道在哪里可以听到翻唱版本,B提供了可能的播放渠道；对话目的是帮助A找到收听翻唱版《安静》的方式。"
+    },
+    {
+    "id": 7,
+    "A": "我一定要去听听看。那原版《安静》是周杰伦的哪一张专辑中的歌曲呢？",
+    "Thought": "{Dialogue Types[问题-回答], Search[《安静》原版所属专辑], Find[无直接信息关于原版《安静》所属专辑,结合常识可知此歌曲收录在周杰伦的专辑当中。]}",
+    "B": "原版的《安静》是收录在周杰伦2001年推出的《范特西》专辑中。",
+    "chain": "[问题-回答]; 话题深入; A询问原版《安静》的专辑信息,B提供了专辑名称；对话目的是告知A《安静》原版所属的专辑。"
+    },
+    {
+    "id": 8,
+    "A": "太感谢了！这首歌给我带来了很多回忆。",
+    "Thought": "{Dialogue Types[观点-认同], Search[《安静》给人的影响], Find[无具体信息,但常识可知许多人因为周杰伦的歌曲而有共鸣和回忆。]}",
+    "B": "不用谢。《安静》确实是一首能够触动人心的歌曲,周杰伦的音乐有着独特的魅力,能够陪伴我们很长时间。",
+    "chain": "[观点-认同]; 对话结束; A表示感谢并分享个人情感,B认同并评价周杰伦的音乐和《安静》的意义；对话目的是共鸣A的情感并结束对话。"
+    }
+  ],
+}
+
+==========
+
+Here is a new example, The following is the reference information provided, Please output the complete multi-round dialog in json format, including three keys "Reference", "Character Information", "Multi-round Dialogue Content".
+
+Input:

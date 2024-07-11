@@ -1,0 +1,90 @@
+Your task is to construct a multi-round two-person dialogue based on the content of the reference knowledge document.
+
+Requirements:
+1. Character A can state relevant facts or ask questions about them, while Character B acts as an assistant. The dialogue should take place in a variety of settings.
+2. Both Character A and Character B should provide subjective responses.
+3. The dialogue should consist of more than seven turns.
+4. Before Character B responds, they need to use {} to explain their thought process. What is the logical process? First, analyze the type of dialogue, which includes (question-answer, question-question, statement-inquiry, statement-explanation, viewpoint-counterargument, viewpoint-agreement), then search for information, and complete the dialogue based on the discovered information.
+5. The entire multi-turn dialogue should include a variety of dialogue types.
+6. The content of the multi-round dialogue is in json format, with four keys. The first key is "id", which represents the round of the dialogue in the multi-round dialogue; the second key is "A", which represents the content of character A's speech; the third key is "thought", which represents the thought process of character B in response to character A's dialogue, in the format of {Dialogue Type[xx-xx], Search[xx], Find[xx]}, where Search[] is the target of the search, and Find[] is the result of searching the [#Reference] based on the content of Search[], if there is no direct information, answer based on the model's common sense; The fourth key is "chain", which represents the logic chain of the current dialogue, divided into four parts, the first part is to identify the dialogue type; the second part is to evaluate the progress of the dialogue; the third part is to introduce the logical process of A and B's dialogue separately; the fourth part is to evaluate the dialogue purpose of the current single round dialogue.
+7. The dialogue between Character A and Character B must be in English.
+8. The output format must be json, and no additional explanatory information is required.
+9. The value corresponding to the key "Reference" in the JSON data's multi-turn dialogue must be the same as the given reference, without any missing parts.
+
+[Explanation of Dialogue Types]:
+1. Question-Answer: This is the most common dialogue logic chain, where character A asks a question and character B provides an answer. For example, "A: How old are you?" "B: I'm 23."
+2. Question-Question: This is a logic process of question intent completion. Character A asks a relatively vague question, and when character B needs to clarify the intent of character A's question, character B can continue to ask. For example, "A: How old are you?" "B: Are you asking how old I am in terms of age?"
+3. Statement-Inquiry: Character A makes a statement, and character B asks about it or requests more information. For example, "A: I went to the museum today." "B: Oh, what interesting exhibits did you see?"
+4. Statement-Explanation: Character A states a fact, and then character B explains or elaborates on the related information of this fact. For example, "A: Yao Ming won the CBA championship in 2002." "B: He was also selected as the CBA rebounding king and blocking king three times each, and the CBA dunk king twice."
+5. Opinion-Rebuttal: Character A presents an opinion, and character B refutes or presents a different opinion based on facts. For example, "A: I think this movie is very good." "B: No, this movie has a rating of 9.5, it's a good movie."
+6. Opinion-Agreement: Character A presents an opinion, and character B agrees or disagrees based on facts. For example, "A: This contestant sings really badly." "B: Indeed, the judges gave low scores."
+
+Here is the first typical example:
+
+==========
+{
+  "Reference": "Big Pot Lamb\nBig Pot Whole Lamb is a famous dish from the Yimeng Mountain area in central Shandong. It involves cooking every part of the lamb - meat, bones, organs, blood, head, hooves, tail, and even the whip - all in one pot, then sprinkling it with finely chopped coriander. The dish is visually appealing, aromatic, and flavorful, tender and delicious, with a rich broth, nutritious, and is known for its restorative properties, earning it the reputation of being the 'ginseng among meats'.\nChinese Name\nBig Pot Lamb\nCategory\nShandong Cuisine\nTaste\nFresh, tender, delicious\nMain Ingredients\nLamb, Lamb\n\nIntroduction to Big Pot Lamb\nBig Pot Whole Lamb, a renowned dish from the Yimeng Mountain area in central Shandong, is beloved by the masses for its reputation. The best whole lamb in the Yimeng Mountain area is said to be from Yiyuan County. As the main production area for Yimeng black goats, Yiyuan whole lamb has the most authentic aroma and richest taste, fatty but not greasy, and refreshingly savory. Walking through Yiyuan County, you'll find numerous whole lamb restaurants, a distinctive feature of this mountain city. Without trying the whole lamb, one cannot claim to have truly visited Yimeng Mountain. The essence of Big Pot Whole Lamb lies in the 'whole' aspect. Cooking every part of the lamb in one pot and sprinkling it with finely chopped coriander results in a dish that is visually appealing, aromatic, flavorful, tender, and delicious, with a rich broth, nutritious, and known for its restorative properties, thus earning it the reputation of being the 'ginseng among meats'.\nBig Pot Lamb Cooking Method\n",
+  "Character Information": "[A: Food Enthusiast  B: Food Columnist]",
+  "Multi-round Dialogue Content": [
+    {
+      "id": 1,
+      "A": "Hello, I recently heard about a famous dish called Big Pot Lamb from the Yimeng Mountain area in central Shandong. Do you know about it?",
+      "Thought": "{Dialogue Types[Question-Answer], Search[Big Pot Lamb], Find[Big Pot Whole Lamb, a renowned dish from the Yimeng Mountain area in central Shandong.]}",
+      "B": "Hello, yes, Big Pot Lamb is a very famous dish from the Yimeng Mountain area in central Shandong. It involves cooking every part of the lamb together, which is quite unique.",
+      "chain": "[Question-Answer]; Dialogue starts; A asks about Big Pot Lamb, B confirms and provides a brief introduction; The purpose of the dialogue is to understand Big Pot Lamb."
+    },
+    {
+      "id": 2,
+      "A": "It sounds very flavorful. What are its main ingredients?",
+      "Thought": "{Dialogue Types[Question-Answer], Search[Big Pot Lamb Main Ingredients], Find[The main ingredient is lamb.]}",
+      "B": "The main ingredient is, of course, lamb, including the meat, bones, organs, blood, etc., practically the entire lamb is used.",
+      "chain": "[Question-Answer]; Dialogue continues; A asks about the main ingredients, B answers lamb and its parts; The purpose of the dialogue is to understand the composition of Big Pot Lamb."
+    },
+    {
+      "id": 3,
+      "A": "What does it taste like?",
+      "Thought": "{Dialogue Types[Question-Answer], Search[Big Pot Lamb Taste], Find[Taste is fresh, tender, delicious.]}",
+      "B": "The taste of Big Pot Lamb is very delicious, with tender meat and an overall very appetizing flavor.",
+      "chain": "[Question-Answer]; Dialogue continues; A asks about the taste, B describes the taste characteristics; The purpose of the dialogue is to understand the taste of Big Pot Lamb."
+    },
+    {
+      "id": 4,
+      "A": "I heard that the whole lamb from Yiyuan County is the most famous, is that true?",
+      "Thought": "{Dialogue Types[Question-Answer], Search[Yiyuan County Whole Lamb], Find[The whole lamb from Yiyuan County has the most authentic aroma and richest taste.]}",
+      "B": "That's correct, the whole lamb from Yiyuan County is the most famous in the Yimeng Mountain area. The lamb there has a rich aroma and a deep flavor, very popular indeed.",
+      "chain": "[Question-Answer]; Dialogue continues; A asks about the reputation of Yiyuan County whole lamb, B confirms and praises Yiyuan County whole lamb; The purpose of the dialogue is to confirm the reputation of Yiyuan County whole lamb."
+    },
+    {
+      "id": 5,
+      "A": "This dish sounds nutritionally rich. Is there any special way to cook it?",
+      "Thought": "{Dialogue Types[Question-Answer], Search[Big Pot Lamb Method], Find[No specific method information, but can infer cooking method based on description.]}",
+      "B": "Indeed, the cooking method for Big Pot Lamb is quite particular. It requires cooking all parts of the lamb together and then sprinkling it with coriander, making the lamb visually appealing, aromatic, and flavorful.",
+      "chain": "[Question-Answer]; Dialogue continues; A asks about the cooking method, B describes the cooking process; The purpose of the dialogue is to understand the cooking method of Big Pot Lamb."
+    },
+    {
+      "id": 6,
+      "A": "Is there any particular way to eat Big Pot Lamb?",
+      "Thought": "{Dialogue Types[Question-Answer], Search[Big Pot Lamb Eating Etiquette], Find[No direct information, but can infer there might be a specific way to eat based on common sense.]}",
+      "B": "The best way to eat Big Pot Lamb is to have it while it's hot, so you can fully enjoy the freshness of the lamb and the richness of the broth. Also, it's usually shared with family or friends, adding to the warm atmosphere.",
+      "chain": "[Question-Answer]; Dialogue continues; A asks about eating etiquette, B provides eating suggestions; The purpose of the dialogue is to understand how to properly enjoy Big Pot Lamb."
+    },
+    {
+      "id": 7,
+      "A": "I really want to try it myself. I'll definitely have to taste it when I visit the Yimeng Mountain area.",
+      "Thought": "{Dialogue Types[Opinion-Agreement], Search[Big Pot Lamb Travel], Find[No direct information, but can agree with A's opinion and offer advice.]}",
+      "B": "Absolutely, visiting the Yimeng Mountain area not only allows you to enjoy the beautiful natural scenery but also to taste the authentic Big Pot Lamb. It will surely be an unforgettable travel experience.",
+      "chain": "[Opinion-Agreement]; Dialogue continues; A expresses a desire to taste, B agrees and encourages A to taste; The purpose of the dialogue is to enhance A's expectation for the travel and culinary experience."
+    },
+    {
+      "id": 8,
+      "A": "Thank you for the introduction, I now have a more comprehensive understanding of Big Pot Lamb.",
+      "Thought": "{Dialogue Types[Opinion-Agreement], Search[Big Pot Lamb Understanding], Find[No direct information, but can agree with A's opinion and express willingness to help.]}",
+      "B": "You're welcome, I'm glad I could help you learn about this delicacy. I hope you'll have the chance to try it yourself someday, I believe you'll like it.",
+      "chain": "[Opinion-Agreement]; Dialogue ends; A thanks B for the introduction, B expresses willingness to help and looks forward to A's tasting experience; The purpose of the dialogue is to conclude the conversation and offer A good wishes."
+    }
+  ]
+}
+
+Here is a new example, The following is the reference information provided, Please output the complete multi-round dialog in json format, including three keys "Reference", "Character Information", "Multi-round Dialogue Content".
+
+Input:
